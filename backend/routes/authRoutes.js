@@ -1,5 +1,5 @@
 const express = require("express");
-const bycrypt = require(bcryptjs);
+const bycrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {user} = require('../models');
 const router = express.Router();
@@ -35,4 +35,4 @@ router.post("/login", async (req, res) => {
     }
 });
 
-module.export = router
+module.exports = router;
