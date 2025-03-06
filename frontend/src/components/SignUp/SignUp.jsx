@@ -29,8 +29,8 @@ const SignUp = () => {
         }
     }
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
+        <div className="min-h-screen bg-gray-600 flex items-center justify-center">
+      <div className="bg-slate-500 p-6 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -76,7 +76,7 @@ const SignUp = () => {
           <div className='mb-4'>
           <label className="block text-gray-700">Support Type</label>
             <select
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 bg-accent-content"
               value={supportType}
               onChange={(e) => setSupportType(e.target.value)}
               required
@@ -87,18 +87,14 @@ const SignUp = () => {
               <option value="organization">Organization</option>
               <option value="environmental">Environmental</option>
               <option value="healthcare">Healthcare</option>
+              <option value="others">Others</option>
             </select>
           </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            Sign Up
-          </button>
+          <button className="btn btn-block hover:bg-gray-100 hover:text-black transition duration-300 text-amber-50" type="submit">Sign Up</button>
         </form>
        
         <div className="mt-4 text-center">
-          <a href="/signin" className="text-blue-500">Already have an account? Sign In</a>
+          <a href="/login" className="text-emerald-100 hover:to-black">Already have an account? Sign In</a>
         </div>
       </div>
     </div>
