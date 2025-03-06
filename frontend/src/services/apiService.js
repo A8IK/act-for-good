@@ -1,6 +1,6 @@
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:9000/api/auth';
 
-const request = async (url, method, body = null) => {
+const request = async (url, method, body = null, token = null) => {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -9,6 +9,10 @@ const request = async (url, method, body = null) => {
       method,
       headers,
     };
+
+    if(token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
   
     if (body) {
       config.body = JSON.stringify(body);
@@ -37,4 +41,9 @@ const request = async (url, method, body = null) => {
   // Login 
   export const login = async (credentials) => {
     return request('/login', 'POST', credentials);
+  };
+
+  //Fetch user data
+  export const getUserData = async (token) => {
+    return request("/user", "GET", null, token);
   };

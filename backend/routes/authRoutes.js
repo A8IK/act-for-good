@@ -1,18 +1,32 @@
 const express = require("express");
-const bycrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {User} = require('../models/user');
+const User = require('../models/user');
 const router = express.Router();
 require("dotenv").config();
 
 //SignUp
 router.post("/signup", async(req, res) => {
-    const {name, email, password, contact, supportType} = req.body;
-    const hashPassword = await bycrypt.hash(password, 11);
 
     try{
-        const user = await User.create({name, email, password: hashPassword, contact, supportType});
-        res.status(201).json({message: "User created",user});
+        const {name, email, password, contact, supportType} = req.body;
+
+        console.log("Received signup request:", req.body);
+        
+        const hashPassword = await bcrypt.hash(password, 11);
+        const existingUser = await User.findOne({ email });
+
+        if (!name || !email || !password || !contact || !supportType) {
+            console.log("Missing fields:", req.body);
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        if(existingUser){
+            return res.status(400).json({error: "User already exists."})
+        }
+        const newuser = new User({name, email, password: hashPassword, contact, supportType});
+        const savedUser = await newuser.save();
+        res.status(201).json({message: "User created",savedUser});
     }
     catch(error){
         res.status(500).json({error: 'Registration failed'})
@@ -23,11 +37,11 @@ router.post("/signup", async(req, res) => {
 router.post("/login", async (req, res) => {
     const {email, password } = req.body;
     try{
-        const user = await User.findOne({where: {email}});
+        const user = await User.findOne({ email });
         if(!user || !(await bcrypt.compare(password, user.password))){
             return res.status(401).json({error: "Invaild credintials"});
         }
-        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expressIn: "1d"});
+        const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: "1d"});
         res.json({message: "Login successful", token});
     }
     catch (error){

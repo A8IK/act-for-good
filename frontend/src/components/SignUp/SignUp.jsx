@@ -10,7 +10,7 @@ const SignUp = () => {
     const [supportType, setSupportType] = useState('');
     const [error, setError] = useState('');
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +19,7 @@ const SignUp = () => {
         try{
             const userData = { name, email, password, contact, supportType};
             const response = await signup(userData);
-            navigate('/homePage');
+            navigate('/login');
 
             alert('Signup successfully');
 
