@@ -9,7 +9,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        localStorage.setItem("loggedIn", loggedIn);
+        localStorage.setItem("loggedIn", loggedIn ? "true" : "false");
     },   [loggedIn]);
 
     const handleAuth = () => {
@@ -17,7 +17,10 @@ const NavBar = () => {
             localStorage.removeItem("loggedIn");
             setLoggedIn(false);
         }
-        
+        else{
+           setLoggedIn(true);
+           localStorage.setItem("loggedIn", "true");
+        }
         navigate('/login');
     };
 
@@ -49,7 +52,7 @@ const NavBar = () => {
                         </details>
                     </li>
                     <li><a>CreateHelp</a></li>
-                    {loggedIn && <li><a>Profile</a></li>}
+                    {loggedIn && <li><a href="/profile">Profile</a></li>}
                 </ul>
             </div>
             <div className="navbar-end">

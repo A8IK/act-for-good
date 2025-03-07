@@ -8,6 +8,7 @@ import "./index.css";
 import SignUp from './components/SignUp/SignUp'
 import Login from './components/Login/Login';
 import Root from './components/Root/Root/Root';
+import Profile from './components/Profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: '/profile',
+        element: <Profile></Profile>,
       },
     ]
   },
