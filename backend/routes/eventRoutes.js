@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Event = require("../models/event");
-const authRoutes = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
 //create event for authenticate user
-router.post("/create", authRoutes, async (req, res) => {
+router.post("/create", authMiddleware, async (req, res) => {
     try{
         const {title, description, location, date, time, category} = req.body;
         const newEvent = new Event({
@@ -21,7 +21,7 @@ router.post("/create", authRoutes, async (req, res) => {
 //List all events
 router.get('/', async (req, res) => {
     try {
-        const events = await Event.find().populate("creatBy", "name email");
+        const events = await Event.find().populate("createdBy", "name email");
         res.status(200).json(events);
     }
     catch (error) {
