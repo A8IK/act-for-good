@@ -7,16 +7,24 @@ import {
 import "./index.css";
 import SignUp from './components/SignUp/SignUp'
 import Login from './components/Login/Login';
+import Root from './components/Root/Root/Root';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <SignUp></SignUp>
+    path:'/',
+    element: <Root></Root>,
+    children: [
+      {
+        path: '/',
+        element: <SignUp></SignUp>
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+    ]
   },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
+  
 ])
 
 createRoot(document.getElementById('root')).render(
