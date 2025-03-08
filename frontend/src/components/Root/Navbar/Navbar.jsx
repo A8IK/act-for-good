@@ -2,26 +2,41 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-    const {loggedIn, setLoggedIn} = useState(() => {
-        return localStorage.getItem("loggedIn") === "true";
+    const  [loggedIn, setLoggedIn ] = useState(() => {
+        const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+        return isLoggedIn;
     });
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        const storageChange = () => {
+            const loggedIn = localStorage.getItem("loggedIn") == "true";
+            setLoggedIn(loggedIn);
+        };
+
+        window.addEventListener('storage', storageChange);
+
+        return () => {
+            window.removeEventListener('storage', storageChange);
+        };
+    },[])
+
+    useEffect(() => {
+        console.log("Updating localStorage. loggedIn:", loggedIn);
         localStorage.setItem("loggedIn", loggedIn ? "true" : "false");
-    },   [loggedIn]);
+    }, [loggedIn]);
 
     const handleAuth = () => {
-        if(loggedIn){
+        if (loggedIn) {
             localStorage.removeItem("loggedIn");
+            localStorage.removeItem("token");
             setLoggedIn(false);
+            navigate('/login');
         }
-        else{
-           setLoggedIn(true);
-           localStorage.setItem("loggedIn", "true");
+        else {
+            navigate('/login');
         }
-        navigate('/login');
     };
 
     return (

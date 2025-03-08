@@ -24,7 +24,9 @@ const Login = () => {
 
             if(response.ok){
                 localStorage.setItem('token', data.token);
-                navigate('/');
+                localStorage.setItem('loggedIn', 'true');
+                window.dispatchEvent(new Event('storage'));
+                navigate('/event');
                 alert("Login Successful!!");
             }
             else{
