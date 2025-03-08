@@ -9,11 +9,11 @@ router.post("/create", authMiddleware, async (req, res) => {
     console.log("Headers received:", req.headers); 
 
     try{
-        const {title, description, urgency, createdBy} = req.body;
+        const {title, description, urgency, createdBy, location, userLocalTime} = req.body;
         const newEvent = new Event({
-            title, description,urgency, createdBy: createdBy || req.user.id
+            title, description,urgency, createdBy: createdBy || req.user.id, location, userLocalTime,
         });
-        if (!title || !description || !urgency) {
+        if (!title || !description || !urgency || !location || !userLocalTime) {
             console.error("Validation failed: Missing required fields");
             return res.status(400).json({ error: "All fields are required." });
         }

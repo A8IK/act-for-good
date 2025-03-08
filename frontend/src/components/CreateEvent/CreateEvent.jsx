@@ -5,6 +5,7 @@ const CreateEvent = () => {
         title: "",
         description: "",
         urgency: "Low",
+        location: "",
     });
 
     const handleChange = (e) => {
@@ -14,7 +15,7 @@ const CreateEvent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!eventData.title || !eventData.description || !eventData.urgency) {
+        if (!eventData.title || !eventData.description || !eventData.urgency || !eventData.location) {
             alert("All fields are required");
             return;
         }
@@ -29,16 +30,18 @@ const CreateEvent = () => {
             const decodedToken = JSON.parse(atob(token.split('.')[1]));
             const userId = decodedToken.id;
 
+            const userLocalTime = new Date().toLocaleString("en-US", { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone });
+
             const response = await fetch("http://localhost:9000/api/events/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 },
-                body: JSON.stringify({ ...eventData, createdBy: userId, })
+                body: JSON.stringify({ ...eventData, createdBy: userId, userLocalTime})
             })
 
-            console.log("Raw Response:", response);
+            console.log("Raw Response:", response); //debugging
 
             if (!response.ok) {
                 const data = await response.json();
@@ -46,7 +49,7 @@ const CreateEvent = () => {
                 throw new Error("Failed to create help request")
             };
             alert("Event created successfully!");
-            setEventData({ title: "", description: "", urgency: "Low" });
+            setEventData({ title: "", description: "", urgency: "Low", location:"" });
         }
         catch (error) {
             console.error(error);
@@ -64,6 +67,9 @@ const CreateEvent = () => {
 
                     <label className="fieldset-label">Description</label>
                     <input type="text" name="description" className="input h-25" placeholder="Write your event description." value={eventData.description} onChange={handleChange} />
+
+                    <label className="fieldset-label">Location</label>
+                    <input type="text" name="location" className="input" placeholder="Event location" value={eventData.location} onChange={handleChange} />
 
                     <label className="fieldset-label mt-4 block">Urgency</label>
                     <select name="urgency" className="select" value={eventData.urgency} onChange={handleChange}>
