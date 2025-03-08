@@ -10,6 +10,7 @@ import Login from './components/Login/Login';
 import Root from './components/Root/Root/Root';
 import Profile from './components/Profile/Profile';
 import EventsHelp from './components/EventsHelp/EventsHelp';
+import CreateEvent from './components/CreateEvent/CreateEvent';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/event',
         element: <EventsHelp></EventsHelp>,
+      },
+      {
+        path: '/create',
+        element: <CreateEvent></CreateEvent>,
       },
     ]
   },

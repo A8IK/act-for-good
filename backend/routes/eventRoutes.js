@@ -5,11 +5,19 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 //create event for authenticate user
 router.post("/create", authMiddleware, async (req, res) => {
+    console.log("Received Request Body:", req.body);
+    console.log("Headers received:", req.headers); 
+
     try{
-        const {title, description, location, date, time, category} = req.body;
+        const {title, description, urgency, createdBy} = req.body;
         const newEvent = new Event({
-            title, description, location, date, time, category, createdBy: req.user.id
+            title, description,urgency, createdBy: createdBy || req.user.id
         });
+        if (!title || !description || !urgency) {
+            console.error("Validation failed: Missing required fields");
+            return res.status(400).json({ error: "All fields are required." });
+        }
+        console.log("User ID from token:", req.user.id);
         await newEvent.save();
         res.status(201).json({message: "Event created", event: newEvent });
     }
