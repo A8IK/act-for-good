@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 const EventsHelp = () => {
     const [event, setEvent] = useState([]);
 
-    const { createdBy } = event || {};
-
     useEffect(() => {
         const fetchEvent = async () => {
             try {
@@ -34,19 +32,20 @@ const EventsHelp = () => {
         <div>
             {
                 event.map((event) => (
-                    <div key={event._id} className="card bg-base-100 card-md shadow-2xl w-full">
+                    <div key={event._id} className="card bg-base-100 card-md shadow-2xl w-full m-5">
                         <div className="card-body">
                             <h2 className="card-title">{event.title}</h2>
                             <p>{event.description}</p>
-                            <p>{event.location}</p>
-                            <p>{event.urgency}</p>
-                            {/* <p>{userLocalTime}</p> */}
-                            <p>{createdBy?.name}</p>
-                            <p>Created At: {new Date(event.createdAt).toLocaleString()}</p>
+                            <span>location: <div className="badge badge-outline badge-accent ml-1.5">{event.location}</div></span>
+                            <p>Urgency: <div className="badge badge-outline badge-info ml-1.5"> {event.urgency}</div></p>
+                            <div className='flex justify-between'>
+                            <span>Name: <div className="badge badge-soft badge-success ml-1.5">{event.createdBy?.name || "unknown"}</div></span>
+                            <span>Created At: <div className="badge badge-soft badge-success ml-1.5">{new Date(event.createdAt).toLocaleString()}</div></span>
+                            </div>
                             <textarea type="text" placeholder="Comments" className="textarea textarea-info mt-4"></textarea>
-                            <div className="justify-end card-actions">
+                            <div className="card-actions flex justify-between">
                                 <button className="btn btn-primary">Comment</button>
-                                <button className="btn btn-primary">Join</button>
+                                <button className="btn btn-primary">Join Event</button>
                             </div>
                         </div>
                     </div>
