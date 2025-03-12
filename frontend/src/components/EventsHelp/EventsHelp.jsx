@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Comments from '../Comments/Comments';
 
 const EventsHelp = () => {
     const [event, setEvent] = useState([]);
@@ -12,12 +13,12 @@ const EventsHelp = () => {
                 console.log("Event data:", data);
 
                 if (data && Array.isArray(data) && data.length > 0) {
-                    setEvent(data); 
-                } 
+                    setEvent(data);
+                }
                 else {
                     console.log("No event data found.");
                 }
-            } 
+            }
             catch (error) {
                 console.error("Failed to fetch event:", error);
                 console.log("Failed to fetch event data.");
@@ -25,7 +26,7 @@ const EventsHelp = () => {
         };
 
         fetchEvent();
-    }, []); 
+    }, []);
 
 
     return (
@@ -39,12 +40,12 @@ const EventsHelp = () => {
                             <span>location: <div className="badge badge-outline badge-accent ml-1.5">{event.location}</div></span>
                             <p>Urgency: <div className="badge badge-outline badge-info ml-1.5"> {event.urgency}</div></p>
                             <div className='flex justify-between'>
-                            <span>Name: <div className="badge badge-soft badge-success ml-1.5">{event.createdBy?.name || "unknown"}</div></span>
-                            <span>Created At: <div className="badge badge-soft badge-success ml-1.5">{new Date(event.createdAt).toLocaleString()}</div></span>
+                                <span>Name: <div className="badge badge-soft badge-success ml-1.5">{event.createdBy?.name || "unknown"}</div></span>
+                                <span>Created At: <div className="badge badge-soft badge-success ml-1.5">{new Date(event.createdAt).toLocaleString()}</div></span>
                             </div>
-                            <textarea type="text" placeholder="Comments" className="textarea textarea-info mt-4"></textarea>
-                            <div className="card-actions flex justify-between">
-                                <button className="btn btn-primary">Comment</button>
+                            <Comments eventId={event._id}></Comments>
+                            <div className="card-actions flex justify-end">
+                                {/* <button className="btn btn-primary">Comment</button> */}
                                 <button className="btn btn-primary">Join Event</button>
                             </div>
                         </div>

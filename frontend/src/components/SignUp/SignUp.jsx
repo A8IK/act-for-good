@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../../services/apiService';
 
 const SignUp = () => {
@@ -94,7 +94,7 @@ const SignUp = () => {
         </form>
        
         <div className="mt-4 text-center">
-          <a href="/login" className="text-emerald-100 hover:to-black">Already have an account? Sign In</a>
+          <Link to="/login" className="text-emerald-100 hover:to-black">Already have an account? Sign In</Link>
         </div>
       </div>
     </div>

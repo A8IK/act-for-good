@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
     const  [loggedIn, setLoggedIn ] = useState(() => {
@@ -49,16 +49,16 @@ const NavBar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a href="/event">NewsFeed</a></li>
+                        <li><Link to="/event">NewsFeed</Link></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">actForGood</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a href='/event'>NewsFeed</a></li>
-                    <li><a href="/create">CreateHelp</a></li>
-                    {loggedIn && <li><a href="/profile">Profile</a></li>}
+                    <li><Link to='/event'>NewsFeed</Link></li>
+                    <li><Link to="/create">CreateHelp</Link></li>
+                    {loggedIn && <li><Link to="/profile">Profile</Link></li>}
                 </ul>
             </div>
             <div className="navbar-end">

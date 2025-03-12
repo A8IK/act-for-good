@@ -1,42 +1,63 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
-const HelpRequest = require("../models/helpRequest");
+const Event = require("../models/event");
 
-// Comment on help request
-router.post("/comment/:requestId", authMiddleware, async (req, res) => {
+//Add comment
+router.post("/comment/:eventId", authMiddleware, async (req, res) => {
     try {
+        const { eventId } = req.params;
+        const { comment } = req.body;
 
-        console.log("Request received for:", req.params.requestId); 
+        if (!comment) {
+            return res.status(400).json({ message: "Comment text is required" });
+        }
 
-        const helpRequest = await HelpRequest.findById(req.params.requestId);
-        if (!helpRequest) {
-            return res.status(404).json({ error: "Request not found" })
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
+        const newComment = {
+            user: req.user._id,
+            text: comment,
+            createdAt: new Date(),
         };
 
-        helpRequest.comments.push({ user: req.user.id, text: req.body.text });
-        await helpRequest.save();
-        res.status(200).json({ message: "Comment added" });
-    } 
+        await Event.updateOne(
+            { _id: eventId },
+            { $push: { comments: newComment } }
+        );
+
+        const updatedEvent = await Event.findById(eventId).populate('comments.user', 'name');
+
+        const addedComment = updatedEvent.comments.find(
+            (c) => c.text === comment && c.user._id.toString() === req.user._id.toString()
+        );
+
+        res.status(200).json({ message: "Comment added successfully", comment: addedComment });
+    }
     catch (error) {
-        res.status(500).json({ error: "Failed to add comment" });
+        console.error("Error adding comment:", error);
+        res.status(500).json({ message: "Server error" });
     }
 });
 
-// Mark as urgent
-router.patch("/urgent/:requestId", authMiddleware, async (req, res) => {
+//fetch comment
+router.get("/comments/:eventId", authMiddleware, async (req, res) => {
     try {
-        const helpRequest = await HelpRequest.findById(req.params.requestId);
-        if (!helpRequest) {
-            return res.status(404).json({ error: "Request not found" })
-        };
+        const { eventId } = req.params;
+        const event = await Event.findById(eventId).populate('comments.user', 'name');
 
-        helpRequest.isUrgent = true;
-        await helpRequest.save();
-        res.status(200).json({ message: "Request marked" });
-    } 
+        if (!event) {
+            return res.status(404).json({ message: "Event not found" });
+        }
+
+        res.status(200).json(event.comments);
+    }
     catch (error) {
-        res.status(500).json({ error: "Failed to mark" });
+        console.error("Error fetching comments:", error);
+        res.status(500).json({ message: "Server error" });
     }
 });
 

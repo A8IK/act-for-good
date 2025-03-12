@@ -16,7 +16,7 @@ connectDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/events",eventRoutes);
-app.use("/api/help", helpRoutes);
+app.use("/api/helpRequests", helpRoutes);
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () =>  console.log(`Server running on ${PORT}`));

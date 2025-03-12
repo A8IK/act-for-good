@@ -10,6 +10,13 @@ const eventSchema = new mongoose.Schema({
     createdBy: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
     participants: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
     userLocalTime: { type: String, required: true }, 
+    comments: [
+          {
+              user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+              text: String,
+              createdAt: { type: Date, default: Date.now },
+          },
+      ],
 },{ timestamps: true })
 
 module.exports = mongoose.model("Event", eventSchema);
