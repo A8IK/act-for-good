@@ -64,8 +64,8 @@ JWT_SECRET=your_secret_key
 4.Run the Server to type in your terminal: __npm start__ and for frontend __npm run dev__
 
 **API Documentation**
-*Endpoint: POST /api/events/create
-*Headers: {Authorization: Bearer token}
+* Endpoint: POST /api/events/create
+* Headers: {Authorization: Bearer token}
 ```
 Body:
   {
