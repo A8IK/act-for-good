@@ -42,7 +42,7 @@ const EventsHelp = () => {
 
                 const data = await response.json();
                 console.log("Fetched events data:", data);
-
+            
                 setEvent(data.events || []);
                 setTotalPages(data.totalPages || 1);
             }
@@ -69,17 +69,17 @@ const EventsHelp = () => {
     return (
         <div>
             <EventFilters onFilterSubmit={handleFilterSubmit}></EventFilters>
-            {
+            { 
                 event.map((event) => (
                     <div key={event._id} className="card bg-base-100 card-md shadow-2xl w-full m-5">
                         <div className="card-body">
                             <h2 className="card-title">{event.title}</h2>
-                            <p>{event.description}</p>
-                            <span>location: <div className="badge badge-outline badge-accent ml-1.5">{event.location}</div></span>
-                            <p>Urgency: <div className="badge badge-outline badge-info ml-1.5"> {event.urgency}</div></p>
-                            <span>Name: <div className="badge badge-soft badge-success ml-1.5">{event.createdBy?.name || "unknown"}</div></span>
-                            <div className='flex justify-between'>
-                                <span>Event Date: <div className="badge badge-soft badge-error">{new Date(event.eventDate).toLocaleDateString("en-US")}</div></span>
+                            <span><strong>Details:</strong> <p>{event.description}</p></span>
+                            <span className='mt-4'>location: <div className="badge badge-outline badge-accent ml-1.5">{event.location}</div></span>
+                            <p className='mt-1'>Urgency: <div className="badge badge-outline badge-info ml-1.5"> {event.urgency}</div></p>
+                            <span className='mt-1'>Name: <div className="badge badge-soft badge-success ml-1.5">{event.createdBy?.name || "unknown"}</div></span>
+                            <div className='flex justify-between mt-1 mb-2'>
+                                <span>Event Date: <div className="badge badge-soft badge-error">{event.eventDate ? new Date(event.eventDate).toLocaleDateString("en-US") : "N/A"}</div></span>
                                 <span>Created At: <div className="badge badge-soft badge-success ml-1.5">{new Date(event.createdAt).toLocaleString()}</div></span>
                             </div>
                             <Comments eventId={event._id}></Comments>
