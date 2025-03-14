@@ -2,19 +2,19 @@
 This project is kinda social platform to help others. In this project every user could see the News feed of other users post and if the user want to create a help post and want to comment on others user post user must need to login. So user can sign up. After signup user could see the other users post and comment and also create a help post for others.
 
 **Technologies used:**
-  -Frontend: ReactJS, Tailwind CSS
-  -Backend: NodeJs, ExpressJs
-  -Database: MongoDB
-  -Authentication: JSON Web Tokens (JWT)
-  -API Testing: Postman
+*Frontend: ReactJS, Tailwind CSS*
+  - Backend: NodeJs, ExpressJs
+  - Database: MongoDB
+  - Authentication: JSON Web Tokens (JWT)
+  - API Testing: Postman
     
 **Features:**
--User Authentication: Users can sign up, log in, and access protected routes.
--Create Events: Authenticated users can create new events with a title, description, location, urgency, and date.
--Filter Events: Users can filter events by urgency, date, and location.
--Pagination: Events are displayed with pagination for easy navigation.
--Comments System: Users can leave comments on event pages.
--Real-Time Updates: Events and comments update dynamically.
+- User Authentication: Users can sign up, log in, and access protected routes.
+- Create Events: Authenticated users can create new events with a title, description, location, urgency, and date.
+- Filter Events: Users can filter events by urgency, date, and location.
+- Pagination: Events are displayed with pagination for easy navigation.
+- Comments System: Users can leave comments on event pages.
+- Real-Time Updates: Events and comments update dynamically.
 
 **Database Schema:**
 __For events and comment schema:__
@@ -85,11 +85,11 @@ Response:
  }
 ```
 **Running the project**
--Loacally:
+- Loacally:
  1.Ensure MongoDB is running.
  2.Start the backend server : __npm start__
  3.Start the frontend server: __npm run dev__
--Production:
+- Production:
  1. You can deploy the backend on Vercel and MongoDB Atlas.
  2. Set up environment variables in the hosting provider.
  3. Deploy the frontend on __Netlify or Vercel__
