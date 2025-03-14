@@ -74,7 +74,7 @@ Body:
   "urgency": "High",
   "location": "New York",
   "eventDate": "2025-05-01T00:00:00Z",
-  "userLocalTime": "10:00 AM"
+  "userLocalTime": "10:00 AM",
   }
 ```
 ```
