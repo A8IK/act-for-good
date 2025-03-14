@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -27,14 +28,22 @@ const Login = () => {
                 localStorage.setItem('loggedIn', 'true');
                 window.dispatchEvent(new Event('storage'));
                 navigate('/event');
-                alert("Login Successful!!");
-            }
-            else{
-                console.log("Failed to login.")
+                toast.success(`Login successful!!`);
+            }   
+            else {
+                if (data.error === "Email not registered") {
+                    toast.error("Your email is not registered.");
+                } 
+                else if (data.error === "Invalid credentials") {
+                    toast.error("Email and password combination is not correct.");
+                } 
+                else {
+                    toast.error("An unexpected error occurred. Please try again later.");
+                }
             }
         }
         catch (err){
-            console.log('Failed to login: ', err);
+            toast.error("Failed to login", err);
         }
     }
 

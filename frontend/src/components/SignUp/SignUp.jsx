@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../../services/apiService';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const [name, setName] = useState('');
@@ -20,12 +21,11 @@ const SignUp = () => {
             const userData = { name, email, password, contact, supportType};
             const response = await signup(userData);
             navigate('/login');
-
-            alert('Signup successfully');
-
+            toast.success("Signup successfully")
         }
         catch(err) {
             setError(err.message);
+            toast.error(err.message);
         }
     }
     return (

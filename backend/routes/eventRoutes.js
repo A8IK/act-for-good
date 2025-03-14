@@ -10,8 +10,9 @@ router.post("/create", authMiddleware, async (req, res) => {
 
     try {
         const { title, description, urgency, createdBy, location, eventDate, userLocalTime } = req.body;
+        console.log("User ID from token:", req.user?._id);
         const newEvent = new Event({
-            title, description, urgency, eventDate, createdBy: createdBy || req.user._id, location, userLocalTime,
+            title, description, urgency, eventDate, createdBy: createdBy || req.user?._id, location, userLocalTime,
         });
         if (!title || !description || !urgency || !location || !eventDate || !userLocalTime) {
             console.error("Validation failed: Missing required fields");
@@ -64,7 +65,7 @@ router.get("/filter", async (req, res) => {
             }
         }
         const skip = (page -1) * limit;
-        const events = await Event.find(filter).skip(skip).limit(parseInt(limit));
+        const events = await Event.find(filter).populate("createdBy", "name email").skip(skip).limit(parseInt(limit));
         const totalEvents = await Event.countDocuments(filter);
         const totalPages = Math.ceil(totalEvents / limit);
 

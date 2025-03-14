@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DayPicker } from "react-day-picker";
 import "cally";
+import { toast } from 'react-toastify';
 
 const CreateEvent = () => {
     const [selected, setSelected] = useState(null);
@@ -23,7 +24,7 @@ const CreateEvent = () => {
         console.log("Event Date (before submission):", eventData.eventDate);
 
         if (!eventData.title || !eventData.description || !eventData.urgency || !eventData.location || !eventData.eventDate) {
-            alert("All fields are required");
+            toast.warning("All fields are required");
             return;
         }
 
@@ -31,7 +32,7 @@ const CreateEvent = () => {
             const token = localStorage.getItem("token");
 
             if (!token) {
-                alert("You must be logged in to create event.")
+                toast.warning("You must be logged in to create event.")
                 return;
             }
             const decodedToken = JSON.parse(atob(token.split('.')[1]));
@@ -56,12 +57,12 @@ const CreateEvent = () => {
                 console.error("Error Response Data:", data);
                 throw new Error("Failed to create help request")
             };
-            alert("Event created successfully!");
+            toast.success("Event created successfully!");
             setEventData({ title: "", description: "", urgency: "Low", location: "", eventDate: "" });
         }
         catch (error) {
             console.error(error);
-            alert("Error creating help request");
+            toast.error("Error creating help request");
         }
     }
     return (

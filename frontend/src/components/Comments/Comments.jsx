@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Comments = ({ eventId }) => {
     const [comments, setComments] = useState([]);
@@ -37,6 +39,7 @@ const Comments = ({ eventId }) => {
 
     const handleCommentSubmit = async () => {
         if (!newComment.trim()) {
+            toast.warning("Comment cannot be empty!");
             return;
         }
 
@@ -46,7 +49,7 @@ const Comments = ({ eventId }) => {
         console.log("Authorization Token:", authToken);
 
         if (!authToken) {
-            console.error("No auth token found. Please log in again.");
+            toast.error("You need to log in to comment!");
             return;
         }
 
@@ -77,9 +80,11 @@ const Comments = ({ eventId }) => {
     
                 setComments([...comments, newCommentData]);
                 setNewComment("");
+                toast.success("Comment added successfully!");
             }
             else {
                 console.error("Failed to add comment", result.error);
+                toast.error("An error occurred while adding the comment!");
             }
         }
         catch (error) {
