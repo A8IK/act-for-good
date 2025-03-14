@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
     const  [loggedIn, setLoggedIn ] = useState(() => {
@@ -8,6 +8,7 @@ const NavBar = () => {
     });
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const storageChange = () => {
@@ -39,6 +40,10 @@ const NavBar = () => {
         }
     };
 
+    const isActive = (path) => {
+        return location.pathname === path;
+    };
+
     return (
         <div className="navbar bg-base-100 shadow-2xl">
             <div className="navbar-start">
@@ -49,16 +54,16 @@ const NavBar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><Link to="/event">NewsFeed</Link></li>
+                        <li><Link to="/event" className={`${isActive('/event') ? 'text-yellow-600 font-bold' : ''}`}>NewsFeed</Link></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">actForGood</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to='/event'>NewsFeed</Link></li>
-                    <li><Link to="/create">CreateHelp</Link></li>
-                    {loggedIn && <li><Link to="/profile">Profile</Link></li>}
+                    <li><Link to='/event' className={`${isActive('/event') ? 'text-yellow-600 font-bold' : ''}`}>NewsFeed</Link></li>
+                    <li><Link to="/create" className={`${isActive('/create') ? 'text-yellow-600 font-bold' : ''}`}>CreateHelp</Link></li>
+                    {loggedIn && <li><Link to="/profile" className={`${isActive('/profile') ? 'text-yellow-600 font-bold' : ''}`}>Profile</Link></li>}
                 </ul>
             </div>
             <div className="navbar-end">

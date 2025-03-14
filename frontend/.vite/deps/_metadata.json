@@ -1,0 +1,55 @@
+{
+  "hash": "6c055f2f",
+  "configHash": "2cc44cb1",
+  "lockfileHash": "dfd1d1e7",
+  "browserHash": "75d6c19e",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "f86a89c5",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "a88cb3d8",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "0d7b806d",
+      "needsInterop": false
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/index.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "09a863ee",
+      "needsInterop": false
+    },
+    "react-day-picker": {
+      "src": "../../node_modules/react-day-picker/dist/esm/index.js",
+      "file": "react-day-picker.js",
+      "fileHash": "36f42689",
+      "needsInterop": false
+    },
+    "cally": {
+      "src": "../../node_modules/cally/dist/cally.js",
+      "file": "cally.js",
+      "fileHash": "ec8db172",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-LEPXZPBD": {
+      "file": "chunk-LEPXZPBD.js"
+    },
+    "chunk-6XQFKQ5H": {
+      "file": "chunk-6XQFKQ5H.js"
+    },
+    "chunk-DP4XHQAG": {
+      "file": "chunk-DP4XHQAG.js"
+    }
+  }
+}
