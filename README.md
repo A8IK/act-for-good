@@ -57,3 +57,31 @@ PORT=9000
 MONGODB_URI=mongodb+srv://atikul2585:12345@act-for-good.2hefo.mongodb.net/?retryWrites=true&w=majority&appName=act-for-good
 JWT_SECRET=your_secret_key
 4.Run the Server to type in your terminal: __npm start__ and for frontend __npm run dev__
+
+**API Documentation**
+*Endpoint: POST /api/events/create
+*Headers: {Authorization: Bearer token}
+Body:
+  {
+  "title": "Charity Run",
+  "description": "A 5K charity run for a good cause",
+  "urgency": "High",
+  "location": "New York",
+  "eventDate": "2025-05-01T00:00:00Z",
+  "userLocalTime": "10:00 AM"
+  }
+Response:
+ {
+  "events": [...],
+  "totalPages": 5
+ }
+
+**Running the project**
+Loacally:
+ 1.Ensure MongoDB is running.
+ 2.Start the backend server : __npm start__
+ 3.Start the frontend server: __npm run dev__
+Production:
+ 1. You can deploy the backend on Vercel and MongoDB Atlas.
+ 2. Set up environment variables in the hosting provider.
+ 3. Deploy the frontend on __Netlify or Vercel__
