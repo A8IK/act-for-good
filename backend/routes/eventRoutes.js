@@ -29,8 +29,16 @@ router.post("/create", authMiddleware, async (req, res) => {
 //List all events
 router.get('/', async (req, res) => {
     try {
-        const events = await Event.find().populate("createdBy", "name email");
-        res.status(200).json(events);
+        const pageNumber = parseInt(req.query.page, 10) || 1;
+        const limitNumber = parseInt(req.query.limit, 10) || 7;
+        const skip = (pageNumber - 1) * limitNumber;
+
+        const events = await Event.find().populate("createdBy", "name email").skip(skip).limit(parseInt(limitNumber));
+
+        const totalEvents = await Event.countDocuments();
+        const totalPages = Math.ceil(totalEvents / limitNumber);
+
+        res.status(200).json({events, totalPages});
     }
     catch (error) {
         res.status(500).json({ error: "Failed to fetch events" });
@@ -40,22 +48,27 @@ router.get('/', async (req, res) => {
 //Filter events
 router.get("/filter", async (req, res) => {
     try {
-        const { urgency, date, location } = req.query;
+        const { urgency, date, location, page = 1,limit = 7 } = req.query;
         const filter = {};
+
         if (urgency || date || location) {
             filter.$or = [];
             if (urgency) {
                 filter.$or.push({ urgency: urgency });
             }
             if (date) {
-                filter.$or.push({ date: new Date(date) });
+                filter.$or.push({ eventDate: new Date(date) });
             }
             if (location) {
                 filter.$or.push({ location: location });
             }
         }
-        const events = await Event.find(filter);
-        res.status(200).json(events);
+        const skip = (page -1) * limit;
+        const events = await Event.find(filter).skip(skip).limit(parseInt(limit));
+        const totalEvents = await Event.countDocuments(filter);
+        const totalPages = Math.ceil(totalEvents / limit);
+
+        res.status(200).json({events, totalPages});
     }
     catch (error) {
         res.status(500).json({ error: "Failed to filter events" });
