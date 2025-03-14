@@ -86,9 +86,9 @@ Response:
 ```
 **Running the project**
 - Loacally:
- 1.Ensure MongoDB is running.
- 2.Start the backend server : __npm start__
- 3.Start the frontend server: __npm run dev__
+ 1. Ensure MongoDB is running.
+ 2. Start the backend server : __npm start__
+ 3. Start the frontend server: __npm run dev__
 - Production:
  1. You can deploy the backend on Vercel and MongoDB Atlas.
  2. Set up environment variables in the hosting provider.
