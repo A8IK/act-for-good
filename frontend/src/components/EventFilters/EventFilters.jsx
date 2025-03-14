@@ -19,6 +19,11 @@ const EventFilters = ({ onFilterSubmit }) => {
         e.preventDefault();
         onFilterSubmit(filters);
     }
+
+    const handleClear = () => {
+        setFilters({urgency: "", date: "", location: ""});
+        onFilterSubmit({urgency: "", date: "", location: ""})
+    }
     return (
         <div className="mb-6  mt-6 border-amber-500 shadow-2xl p-8 w-full">
             <h2 className="text-xl font-bold mb-4">Filter Events</h2>
@@ -51,6 +56,7 @@ const EventFilters = ({ onFilterSubmit }) => {
                         className="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
                 </div>
                 <button type="submit" className="btn btn-dash btn-info">Apply Filters</button>
+                <button type="button" onClick={handleClear} className="btn btn-outline btn-error">X</button>
             </form>
         </div>
     );
