@@ -2,7 +2,7 @@
 This project is kinda social platform to help others. In this project every user could see the News feed of other users post and if the user want to create a help post and want to comment on others user post user must need to login. So user can sign up. After signup user could see the other users post and comment and also create a help post for others.
 
 **Technologies used:**
-*Frontend: ReactJS, Tailwind CSS*
+  - Frontend: ReactJS, Tailwind CSS
   - Backend: NodeJs, ExpressJs
   - Database: MongoDB
   - Authentication: JSON Web Tokens (JWT)
